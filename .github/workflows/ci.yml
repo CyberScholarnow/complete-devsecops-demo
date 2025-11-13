@@ -154,7 +154,8 @@ jobs:
           | tar xz && sudo mv conftest /usr/local/bin/
       - name: Evaluate Dockerfile policy
         run: |
-          conftest test --input text --combine --namespace docker.policy -p policy Dockerfile
+          conftest test -p policy Dockerfile
+
 
   deploy:
     name: 9) “Deploy” to a GitHub Release (free)
