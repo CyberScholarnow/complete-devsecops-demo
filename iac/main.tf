@@ -9,6 +9,6 @@ resource "aws_s3_bucket" "example" {
   acl    = "private"
   # Intentionally using versioning disabled for demo (tools should flag)
   versioning {
-    enabled = false
+    enabled = true
   }
 }
