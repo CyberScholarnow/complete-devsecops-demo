@@ -71,7 +71,7 @@ jobs:
           severity: "HIGH,CRITICAL"
   
       - name: Generate SBOM (CycloneDX)
-        uses: CycloneDX/gh-python-cyclonedx@v1
+        uses: CycloneDX/gh-python-cyclonedx@v2
         with:
           fileName: "bom.xml"
 
