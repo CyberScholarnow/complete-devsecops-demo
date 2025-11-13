@@ -50,7 +50,7 @@ jobs:
           # semgrep-action exits nonzero on any finding; instead parse SARIF or use severity filter.
           # Simpler: rerun with severity filter and ignore low.
           pip install semgrep
-          semgrep --error --severity medium --config p/ci
+          semgrep scan --config p/ci --error --severity WARNING
 
   sca:
     name: 3) SCA (Trivy for deps & SBOM)
