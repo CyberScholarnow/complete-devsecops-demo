@@ -142,7 +142,7 @@ jobs:
         with:
           target: "http://localhost:8000/hello"
           cmd_options: "-a -m 1"
-          artifact_name: "zapscan"   # ← THIS FIXES THE ERROR
+          artifact_name: "zapscan" 
       # Baseline doesn’t fail hard by default; add threshold if you want:
       # - name: Fail on Medium alerts
       #   run: test ! -f report_json.json || jq '.site[].alerts[] | select(.risk=="Medium" or .risk=="High")' report_json.json | grep . && exit 1 || true
