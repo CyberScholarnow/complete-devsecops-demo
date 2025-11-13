@@ -70,7 +70,7 @@ jobs:
       - name: Generate SBOM (CycloneDX)
         uses: CycloneDX/gh-python-cyclonedx@v1
         with:
-          output: "bom.xml"
+          fileName: "bom.xml"
       - name: Upload SBOM
         uses: actions/upload-artifact@v4
         with:
