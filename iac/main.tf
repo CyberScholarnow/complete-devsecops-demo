@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "example" {
-  bucket = "example-secure-bucket"
+  bucket = "example-secure-demo-bucket"
   acl    = "private"
 
   versioning {
@@ -10,17 +10,8 @@ resource "aws_s3_bucket" "example" {
     rule {
       apply_server_side_encryption_by_default {
         sse_algorithm     = "aws:kms"
-        kms_master_key_id = aws_kms_key.s3_key.arn
+        kms_master_key_id = aws_kms_key.s3.arn
       }
-    }
-  }
-
-  lifecycle_rule {
-    enabled = true
-    id      = "expire-old-objects"
-
-    expiration {
-      days = 365
     }
   }
 
@@ -29,29 +20,24 @@ resource "aws_s3_bucket" "example" {
     target_prefix = "logs/"
   }
 
-  replication_configuration {
-    role = aws_iam_role.replication_role.arn
+  lifecycle_rule {
+    id      = "expire-old-objects"
+    enabled = true
 
-    rules {
-      id     = "replication"
-      status = "Enabled"
-
-      destination {
-        bucket        = aws_s3_bucket.example_replica.arn
-        storage_class = "STANDARD"
-      }
+    expiration {
+      days = 365
     }
   }
 
   tags = {
-    Environment = "demo"
+    Environment = "devsecops"
   }
 }
 
-resource "aws_kms_key" "s3_key" {
-  description = "KMS key for S3 encryption"
+resource "aws_s3_bucket" "log_bucket" {
+  bucket = "example-secure-demo-logs"
 }
 
-resource "aws_s3_bucket" "log_bucket" {
-  bucket = "example-secure-log-bucket"
+resource "aws_kms_key" "s3" {
+  description = "KMS key for S3 encryption"
 }
