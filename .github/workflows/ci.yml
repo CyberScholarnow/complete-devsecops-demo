@@ -139,6 +139,7 @@ jobs:
       - name: Run ZAP Full Scan
         run: |
           docker run --network="host" \
+            -u root \
             -v $(pwd):/zap/wrk \
             zaproxy/zap-stable zap-full-scan.py \
             -t http://localhost:8000/hello \
