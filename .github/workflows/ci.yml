@@ -134,13 +134,13 @@ jobs:
           sleep 5
   
       - name: Pull ZAP Docker Image
-        run: docker pull ghcr.io/zaproxy/zap2docker-stable
+        run: docker pull zaproxy/zap-stable
   
       - name: Run ZAP Full Scan
         run: |
           docker run --network="host" \
             -v $(pwd):/zap/wrk \
-            ghcr.io/zaproxy/zap2docker-stable zap-full-scan.py \
+            zaproxy/zap-stable zap-full-scan.py \
             -t http://localhost:8000/hello \
             -g gen.conf \
             -r zap_report.html \
@@ -152,7 +152,6 @@ jobs:
           name: zap-report
           path: zap_report.html
 
-  
   policy_gate:
     name: 8) Policy & Compliance Gate (OPA/Conftest)
     runs-on: ubuntu-latest
