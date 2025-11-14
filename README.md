@@ -56,4 +56,4 @@ This is designed as a **hands-on portfolio project** that mirrors real-world pip
 
 ## 🧩 CI Pipeline Architecture
 # DevSecOps Pipeline
-![Pipeline Diagram](devsecops-pipeline.svg)
+![Pipeline Diagram](devsecops.PNG)
