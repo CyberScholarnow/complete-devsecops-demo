@@ -118,21 +118,8 @@ jobs:
           ignore-unfixed: true
           severity: "HIGH,CRITICAL"
 
-  policy_gate:
-    name: 7) Policy & Compliance Gate (OPA/Conftest)
-    runs-on: ubuntu-latest
-    needs: [container_scan]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Conftest
-        run: |
-          curl -L https://github.com/open-policy-agent/conftest/releases/download/v0.53.0/conftest_0.53.0_Linux_x86_64.tar.gz \
-          | tar xz && sudo mv conftest /usr/local/bin/
-      - name: Evaluate Dockerfile policy
-        run: conftest test -p policy Dockerfile
-
   dast:
-    name: 8) DAST (ZAP Full Scan Docker)
+    name: 7) DAST (ZAP Full Scan Docker)
     runs-on: ubuntu-latest
     needs: build_test_package
   
@@ -147,13 +134,13 @@ jobs:
           sleep 5
   
       - name: Pull ZAP Docker Image
-        run: docker pull owasp/zap2docker-stable
+        run: docker pull ghcr.io/zaproxy/zap2docker-stable
   
       - name: Run ZAP Full Scan
         run: |
           docker run --network="host" \
             -v $(pwd):/zap/wrk \
-            owasp/zap2docker-stable zap-full-scan.py \
+            ghcr.io/zaproxy/zap2docker-stable zap-full-scan.py \
             -t http://localhost:8000/hello \
             -g gen.conf \
             -r zap_report.html \
@@ -164,6 +151,20 @@ jobs:
         with:
           name: zap-report
           path: zap_report.html
+
+  
+  policy_gate:
+    name: 8) Policy & Compliance Gate (OPA/Conftest)
+    runs-on: ubuntu-latest
+    needs: [container_scan]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Conftest
+        run: |
+          curl -L https://github.com/open-policy-agent/conftest/releases/download/v0.53.0/conftest_0.53.0_Linux_x86_64.tar.gz \
+          | tar xz && sudo mv conftest /usr/local/bin/
+      - name: Evaluate Dockerfile policy
+        run: conftest test -p policy Dockerfile
     
   deploy:
     name: 9) “Deploy” to a GitHub Release (free)
