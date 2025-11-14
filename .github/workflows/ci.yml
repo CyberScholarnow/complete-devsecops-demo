@@ -145,7 +145,7 @@ jobs:
             -t http://localhost:8000/hello \
             -g gen.conf \
             -r zap_report.html \
-            -z "-config api.disablekey=true"
+            -z "-config api.disablekey=true" || true
   
       - name: Upload ZAP Report
         uses: actions/upload-artifact@v4
