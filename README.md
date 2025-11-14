@@ -1,6 +1,6 @@
 # 🚀 Complete DevSecOps CI Pipeline (Free + Enterprise-Style)
 
-This project implements a **full, enterprise-grade DevSecOps CI pipeline** using **GitHub Actions** — with **zero paid services**.  
+This project implements a **full, enterprise-grade DevSecOps CI pipeline** using **GitHub Actions** with **zero paid services**.  
 It showcases modern secure software delivery with automated scanning, policy enforcement, and gated deployment.
 
 This is designed as a **hands-on portfolio project** that mirrors real-world pipelines used at top companies.
