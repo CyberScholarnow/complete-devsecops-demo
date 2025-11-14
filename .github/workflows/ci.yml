@@ -110,11 +110,31 @@ jobs:
       - name: Evaluate Dockerfile policy
         run: conftest test -p policy Dockerfile
 
+  sbom:
+    name: 7) SBOM Generation (Syft)
+    runs-on: ubuntu-latest
+    needs: build_test_package
+    steps:
+      - uses: actions/checkout@v4
+  
+      - name: Install Syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh \
+          | sh -s -- -b /usr/local/bin
+  
+      - name: Generate SBOM (CycloneDX JSON)
+        run: syft . -o cyclonedx-json > sbom.json
+  
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.json
 
   deploy:
-    name: 7) “Deploy” to a GitHub Release (free)
+    name: 8) “Deploy” to a GitHub Release (free)
     runs-on: ubuntu-latest
-    needs: [sast, secrets, iac, container_scan, policy_gate]
+    needs: [sast, secrets, iac, container_scan, policy_gate,sbom]
     permissions:
       contents: write
     steps:
