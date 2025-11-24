@@ -29,7 +29,7 @@ jobs:
         run: |
           zip -r app_artifact.zip app.py requirements.txt Dockerfile
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: app_artifact
           path: app_artifact.zip
@@ -69,7 +69,7 @@ jobs:
         run: syft . -o cyclonedx-json > sbom.json
   
       - name: Upload SBOM
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: sbom
           path: sbom.json        
@@ -148,7 +148,7 @@ jobs:
             -z "-config api.disablekey=true" || true
   
       - name: Upload ZAP Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: zap-report
           path: zap_report.html
