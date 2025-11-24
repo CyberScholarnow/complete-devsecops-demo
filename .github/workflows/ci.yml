@@ -110,7 +110,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t demoimage:ci .
       - name: Trivy image scan (fail on HIGH+)
-        uses: aquasecurity/trivy-action@0.24.0
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: "demoimage:ci"
           format: "table"
