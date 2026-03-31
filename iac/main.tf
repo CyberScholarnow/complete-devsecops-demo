@@ -28,7 +28,6 @@ resource "aws_iam_role_policy" "replication_policy" {
       "Effect": "Allow",
       "Action": [
         "s3:GetReplicationConfiguration",
-        "s3:ListBucket"
       ],
       "Resource": [
         "${aws_s3_bucket.example.arn}",
